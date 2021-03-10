@@ -34,4 +34,6 @@ class BaseTemplate extends Template
     public string $description;
 
     public AssetLocator $assetLocator;
+
+    public string $version;
 }

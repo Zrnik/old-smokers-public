@@ -81,7 +81,7 @@ class AuthMenu extends Control
                 )
                 ->addText("Přihlásit se")
                 ->class(
-                    "btn btn-sm bg-discord pl-2"
+                    "btn btn-sm bg-discord text-white hover:text-gray-700 pl-2"
                 )
         );
 

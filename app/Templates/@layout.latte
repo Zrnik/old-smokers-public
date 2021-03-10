@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <title>{ifset $title}{$title} | {/ifset}Old Smokers Endor Guild</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="{webpack 'style.css'}">
-    <script src="{webpack 'main.js'}" async></script>
+    <link rel="stylesheet" href="{webpack 'style.css'}?version={$version}">
+    <script src="{webpack 'main.js'}?version={$version}" async></script>
 
     <!-- Discord Data -->
     <meta property="og:type" content="website">

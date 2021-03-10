@@ -52,7 +52,8 @@ class HomepagePresenter extends BasePresenter
     /**
      * @throws AbortException
      */
-    #[NoReturn] public function handleDownload(): void
+    #[NoReturn]
+    public function handleDownload(): void
     {
         $realLink = 'https://static.zrnik.eu/data/endor/dual/endor-launcher.zip';
         $this->downloadAdd();
