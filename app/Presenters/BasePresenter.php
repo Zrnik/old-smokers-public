@@ -43,7 +43,7 @@ class BasePresenter extends Presenter
     {
         //Tohle je defaultní description page, jednotlive stranky si ho upraví sami.
         $this->template->description =
-            'Jsme nová guilda na Ultima Online Shardu Endor-Reborn! Nábor máme otevřen, navštivte nás na discordu!';
+            'Jsme guilda na Ultima Online Shardu Endor-Reborn!';
 
         //To samé platí pro obrázek (aby třeba screenshot zobrazil náhled screenu a né ten konopný list.
         $this->template->image = $this->assetLocator->locateInPublicPath('images/cannabis.svg');

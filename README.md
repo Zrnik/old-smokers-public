@@ -1,8 +1,8 @@
 # Hello everybody... 
 
-...and welcome to source code of our 
-Ultima Online: [Endor](http://endor-reborn.cz)
-guild **[Old Smokers](https://old-smokers.cz/)** website!
+...and welcome to the website source code of our  
+[Ultima Online: Endor](http://endor-reborn.cz)
+guild **[Old Smokers](https://old-smokers.cz/)**!
 
 **Note:** *The website is completely in czech language,
 along with some comments in the code.*
@@ -16,8 +16,7 @@ Website is written in [Nette Framework](https://nette.org/), running on PHP 8.0.
 
 Design is modified from [Cruip](https://cruip.com/), but the source codes 
 for the build are not present, as the license does not allow me to include 
-it in a public repository. I only included built javascript code and 
-styles, as they are available on the live site anyway.
+it in a public repository.
 
 Authentication and authorization are handled by [Discord](https://discord.com), that has 
 a publicly available, and easy to use API.
@@ -32,6 +31,3 @@ something is wrong, please let me know!
 My name is **Štěpán Zrník**, and I love programming, you can see my 
 website at [https://stepan.zrnik.eu/](https://stepan.zrnik.eu/)
 if you want to see more about me!
-
-
-
