@@ -1,0 +1,58 @@
+{templateType App\Presenters\ApplicationTemplate}
+
+{var $title = 'Vytvořit přihlášku'}
+
+{block content}
+
+    <section>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div>
+
+                <div class="h3">Vaše přihláška</div>
+
+                <div class="pt-4">
+                    Níže nám prosím napiště informace o vás, váše jméno,
+                    věk, kterou jeskyni čí chýši zrovna v reálu obýváte.
+
+                    <br><br>
+
+                    Dále nás zajímají všechny vaše postavy, tak je prosím doplňte ve vašem
+                    <a n:href="Profile:" class="text-green-700" target="_blank">Nastavení</a> aby jsme měli
+                    přehled.
+
+                    <br><br>
+
+                    Pytlíci chtějí
+                    [<a href="http://pytlici.bluefile.cz/viewtopic.php?f=10&t=3" class="text-green-700" target="_blank">zdroj</a>]
+                    po uchazečích vědět, čím vás guilda zaujala že vám stála za
+                    to sepsat vaši přihlášku, ale my víme, že jsme naprosto úžasná guilda, do
+                    které chce každý, takže to nám psát nemusíte.
+
+                    <br><br>
+
+                    Radši nám popište, co už máte s ultimou za sebou, jaké jinné hry hrajete,
+                    popřípadě které jinné UO shardy jste navštívili a v jakých guildách jste
+                    byli. Také nám můžete napsat co vás baví a co vás živí v reálném světě.
+
+                    <br><br>
+
+                    Kontakt předpokládáme že bude probíhat přes discord a jelikož jste přes něj zrovna přihlášeni, víme
+                    jak vás najít :)
+
+                    <br><br>
+
+                    Maličká rada na závěr, pro formátování přihlášky můžete použít značkovací jazyk
+                    <a href="https://cs.wikipedia.org/wiki/Markdown" target="_blank" class="text-green-700">Markdown</a>, bude tak přihláška mnohem hezčí.
+
+                </div>
+
+                <div class="pt-4">
+                    {control applicationForm}
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+{/block}

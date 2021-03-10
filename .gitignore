@@ -1,0 +1,12 @@
+.idea
+composer.lock
+package-lock.json
+app/config/local.neon
+
+www/dist
+www/screenshot-images
+
+node_modules
+vendor
+
+

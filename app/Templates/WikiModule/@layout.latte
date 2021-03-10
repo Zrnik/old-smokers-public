@@ -1,0 +1,67 @@
+{templateType App\Presenters\BaseTemplate}
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="utf-8">
+    <title>{ifset $title}{$title} | {/ifset}Old Smokers Endor Guild</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{webpack 'style.css'}">
+    <script src="{webpack 'main.js'}" async></script>
+
+    <!-- Discord Data -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{$presenter->link("//this")}">
+    <meta property="og:title" content="{ifset $title}{$title} | {/ifset}Endor Wiki">
+    <meta property="og:description" content="Nová verze endor wiki!">
+    <meta property="og:image" content="{webpack 'images/cannabis.svg'}">
+</head>
+
+<body class="font-inter antialiased bg-wiki text-gray-600 tracking-tight">
+
+<!-- Page wrapper -->
+<div class="flex flex-col min-h-screen overflow-hidden">
+
+    <!-- Site header -->
+    {include './parts/header.latte'}
+
+    <!-- Page content -->
+    <main class="flex-grow flex">
+
+        <!-- Page sections -->
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 bg-white pt-20 flex-grow rounded-t-lg mt-1">
+
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 bg-white" n:ifcontent>
+                <div n:foreach="$flashes as $flash" class="
+                         rounded border-2 w-full p-3 {$flash->type}
+                    ">
+                    {$flash->message}
+                </div>
+            </div>
+
+            {include content}
+        </div>
+
+    </main>
+
+    <!-- Site footer -->
+    {include './parts/footer.latte'}
+
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8YQ5FPXDWB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-8YQ5FPXDWB');
+</script>
+
+</body>
+
+</html>

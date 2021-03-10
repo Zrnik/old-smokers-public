@@ -1,0 +1,47 @@
+<header class="absolute w-full z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-20">
+
+            <!-- Site branding -->
+            <div class="flex-shrink-0 mr-4">
+                <!-- Logo -->
+                <a class="block" href="{link 'Homepage:default'}" aria-label="Cruip">
+                    <img
+                            src="{webpack 'images/cannabis.svg'}"
+                            alt="Cannabis Logo"
+                            class="w-20 transform -rotate-45"
+                    >
+                </a>
+            </div>
+
+            <!-- Desktop navigation -->
+            {control menuDesktop}
+
+            <!-- Mobile menu -->
+            <div class="flex md:hidden" x-data="{ expanded: false }">
+
+                <!-- Hamburger button -->
+                <button
+                        class="hamburger"
+                        :class="{ 'active': expanded }"
+                        @click.stop="expanded = !expanded"
+                        aria-controls="mobile-nav"
+                        :aria-expanded="expanded"
+                >
+                    <span class="sr-only">Menu</span>
+                    <svg class="w-6 h-6 fill-current text-gray-300" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect y="4" width="24" height="2" />
+                        <rect y="11" width="24" height="2" />
+                        <rect y="18" width="24" height="2" />
+                    </svg>
+                </button>
+
+                <div class="content-wrapper">
+                    {control menuMobile}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>

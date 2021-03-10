@@ -1,0 +1,68 @@
+{
+    "name": "zrnik/old-smokers",
+    "description": "our guild website",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Štěpán Zrník",
+            "email": "stepan.zrnik@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Zrnik/cruip-menu-renderer.git"
+        }
+    ],
+    "require": {
+        "ext-pdo": "*",
+        "ext-fileinfo": "*",
+        "nette/bootstrap": "^3.1",
+        "nette/application": "^3.1",
+        "tracy/tracy": "^2.8",
+        "nette/neon": "^3.2",
+        "nette/database": "^3.1",
+        "zrnik/mksql": "dev-master",
+        "zrnik/cruip-menu-renderer": "dev-master",
+        "latte/latte": "^2.10",
+        "contributte/webpack": "^2.0",
+        "nette/security": "^3.1",
+        "jetbrains/phpstorm-attributes": "^1.0",
+        "guzzlehttp/guzzle": "^7.2",
+        "nette/forms": "^3.1",
+        "brick/date-time": "^0.2.2",
+        "michelf/php-markdown": "^1.9",
+        "dg/composer-cleaner": "^2.2",
+        "ext-iconv": "*",
+        "ext-mbstring": "*",
+        "nette/safe-stream": "^2.4",
+        "ublaboo/datagrid": "^6.8",
+        "dg/adminer-custom": "^1.27"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12",
+        "phpunit/phpunit": "^9"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --memory-limit 1G",
+        "phpunit": "phpunit tests"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "cleaner-ignore": {
+            "zrnik/mksql": true,
+            "ublaboo/datagrid": true
+        }
+    }
+}

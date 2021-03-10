@@ -1,0 +1,104 @@
+{templateType App\Presenters\ApplicationTemplate}
+
+{var $title = 'Přihlášky'}
+
+{block content}
+
+
+    {if !$user->isLoggedIn()}
+        {include 'parts/sign-in-prompt.latte'}
+    {else}
+        {if !$user->hasApplication()}
+            {if !$user->isMember()}
+                {if $user->hasCharacter()}
+                    {include 'parts/create-application-prompt.latte'}
+                {else}
+                    {include 'parts/create-character-prompt.latte'}
+                {/if}
+            {/if}
+        {else}
+            {include 'parts/my-application-overview.latte'}
+        {/if}
+    {/if}
+
+    <!-- Seznam přihlášek... -->
+    <section>
+        <div class="max-w-6xl mt-2 mx-auto px-4 sm:px-6">
+
+            <div class=" border rounded p-2 bg-green-300 border-green-700 text-green-700" data-aos="fade-up" data-aos-delay="400">
+                <b data-aos="fade-up" data-aos-delay="700">
+                    Upozornění, přihláška není vůbec potřeba,
+                    stačí nám pohovor na discordu. Takže pokud
+                    se chcete stát členem, ale nechcete psát
+                    přihlášku, stačí nás navštívit. Link k discordu
+                    je na
+                    <a href="{link Homepage:default}" class="text-blue-500">hlavní stránce</a>.
+
+                </b>
+            </div>
+
+            <div class="h2 my-4" data-aos="fade-up" data-aos-delay="500">Seznam přihlášek</div>
+            <table class="table w-full">
+                {foreach $applicationList as $application}
+                    {var App\Model\Discord\User $applicationOwner = $discordUserRepository->getUser($application->ownerId)}
+                    <tr data-aos="fade-up" data-aos-delay="550">
+                        <td><img src="{$applicationOwner->getAvatarUrl(512)}" class="w-12 h-12" alt="user avatar"></td>
+                        <td class="h3">{$applicationOwner->getUsername()}#{$applicationOwner->getDiscriminator()}</td>
+                        <td>{$application->lastAction->toDateTime()->format("d.m.Y H:i:s")}</td>
+                        <td>
+                            <div>
+                                {if $application->isResolved()}
+                                    {if $application->isAccepted()}
+                                        <div class="rounded border bg-green-300 text-green-700 text-center p-2 m-1 border-green-700">
+                                            Přijat!
+                                        </div>
+                                    {else}
+                                        <div class="rounded border bg-red-300 text-red-700 text-center p-2 m-1 border-red-700">
+                                            Nepřijat!
+                                        </div>
+                                    {/if}
+                                {else}
+                                    {if $application->votingStarted}
+                                        <div class="rounded border bg-blue-300 text-blue-700 text-center p-2 m-1 border-blue-700">
+                                            Probíhá hlasování!
+                                        </div>
+                                    {else}
+                                        <div class="rounded border bg-purple-300 text-purple-700 text-center p-2 m-1 border-purple-700">
+                                            Nová přihláška
+                                        </div>
+                                    {/if}
+                                {/if}
+                            </div>
+                        </td>
+
+                        <td><a
+                                class="btn bg-indigo-300 hover:bg-indigo-400 text-indigo-700"
+                                href="{link Application:detail, id: $application->id}"
+                            >
+                                Detail
+                            </a>
+                        </td>
+                    </tr>
+                {else}
+                    <tr>
+                        <td colspan="1">
+                            <div class="w-full border rounded-md p-2 bg-orange-800 text-orange-400">
+                                Zatím zde žádná přihláška není, budete první?
+                            </div>
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+{/block}
+

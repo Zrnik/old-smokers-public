@@ -1,0 +1,121 @@
+{templateType App\Presenters\MembersTemplate}
+
+{var $title = 'Seznam Členů'}
+{var $description = 'Seznam členů naší guildy!'}
+
+{block content}
+
+    <section>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="py-12 md:py-20">
+
+                <div class="max-w-3xl mx-auto text-center pb-12 md:pb-10">
+                    <h2
+                        data-aos="fade-up"
+                        data-aos-delay="200"
+                        class="h2 mb-4"
+                    >
+                        Člěnové naší guildy.
+                    </h2>
+                </div>
+
+                <!-- Items -->
+                <div class="max-w-3xl mx-auto -my-4 md:-my-6" data-aos-id-timeline>
+
+
+                    {foreach $memberList as $sectionInfo}
+
+                        <div class="pl-2">
+                            {varType App\Model\Discord\Guilds\GuildRole $role}
+                            {var $role = $sectionInfo["role"]}
+
+
+                            <div class="h2"
+                                 style="color: {$role->getHexColor()|noescape};"
+                                 data-aos="fade-up"
+                                 data-aos-delay="100"
+                            >{$role->getName()}</div>
+
+                        {varType App\Model\Discord\Guilds\GuildMember $member}
+                        {foreach $sectionInfo["members"] as $member}
+                                <!-- 1st item -->
+                                <div class="relative pb-10 pl-20 my-5"
+                                     data-aos="fade-up"
+                                     data-aos-delay="100"
+                                >
+                                    <div class="pl-0">
+
+                                        <div class="flex">
+
+
+
+                                            <div>
+                                                <img src="{$member->getUser()->getAvatarUrl()}" alt="user avatar"
+                                                     class="absolute left-0 inline-flex rounded-md w-16">
+                                            </div>
+
+
+
+                                            <h4 class="h4"
+                                                style="color: {$role->getHexColor()|noescape};">{$member->getNickname()}</h4>
+                                            <div class="pl-2">
+                                                {*foreach $member->getRoles() as $guildMemberRole}
+                                                    <div
+                                                            class="inline bg-gray-800 rounded-full px-2 py-0 mr-2 shadow-lg"
+                                                            style="color: {$guildMemberRole->getHexColor()|noescape};"
+                                                    >
+                                                        <b>{$guildMemberRole->getName()}</b><br>
+                                                    </div>
+                                                {/foreach*}
+
+                                                    {*
+                                                <a href="{$member->getUser()->getDirectMessageUrl()}" class="bg-discord">
+                                                    <div>
+
+                                                    </div>
+                                                    <div>{$member->getUser()->getUsername()}#{$member->getDiscriminator()}</div>
+
+                                                </a>*}
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div>
+                                            {foreach $characters as $character}
+                                                {if $character->ownerId === $member->getId()}
+                                                    <div class="{$character->notoClass()}">
+                                                        {$character->name},
+                                                        {=App\Model\Endor\Jobs::getName($character->job)}
+                                                        ({= App\Model\Endor\Races::getName($character->race)})
+                                                        Level: {$character->boughtLevel}
+                                                    </div>
+                                                {/if}
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                </div>
+                            {else}
+                                <div
+                                        id=""
+                                        data-aos="fade-up"
+                                        data-aos-delay="100"
+
+                                        class="rounded-md bg-red-300 px-8 py-3 my-5 text-red-700 border-red-700 border">
+                                    Pro sekci '{$role->getName()}' nebyl nikdo nalezen!
+
+                                </div>
+
+                            {/foreach}
+
+                        </div>
+                    {/foreach}
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{/block}

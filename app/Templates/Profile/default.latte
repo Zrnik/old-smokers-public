@@ -1,0 +1,74 @@
+{templateType App\Presenters\ProfileTemplate}
+
+{var $title = 'Nastavení'}
+
+{block content}
+    <section class="relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="pt-10">
+                <div class="h2">
+                    Vaše nastavení
+                </div>
+
+                <hr class="my-8">
+
+                <div class="h3 mb-2">
+                    Postavy
+                    <a href="{link Profile:characterEditor, characterId: null}" {* Musí být null jinak to vezme něco v parametru! *}
+                       class="float-right text-sm btn btn-sm bg-green-200 text-green-700 ">
+                        Přidat postavu
+                    </a>
+                </div>
+
+                <table class="table w-full">
+
+                    <tr>
+                        <th class="text-left">Jméno</th>
+                        <th class="text-left">Povolání</th>
+                        <th class="text-left">Rasa</th>
+                        <th class="text-left">Level</th>
+                        <th class="text-left">Reálný level</th>
+                        <th class="text-right">Akce</th>
+                    </tr>
+
+
+                    {foreach $characters as $character}
+
+                        <tr>
+                            <td class="{$character->notoClass()}">{$character->getTag()} <b class="h4">{$character->name}</b></td>
+                            <td class="{$character->notoClass()}">{=App\Model\Endor\Jobs::getName($character->job)}</td>
+                            <td class="{$character->notoClass()}">{= App\Model\Endor\Races::getName($character->race)}</td>
+                            <td>{$character->boughtLevel}</td>
+                            <td>{$character->getRealLevel()}</td>
+                            <td class="text-right">
+                                <a
+                                        href="{link Profile:characterEditor, characterId: $character->id}"
+                                        class="btn btn-sm bg-blue-600"
+                                >
+                                    Upravit
+                                </a>
+
+                                <a
+                                        href="{link Profile:characterDelete, characterId: $character->id}"
+                                        class="btn btn-sm bg-red-600"
+                                >
+                                    Smazat
+                                </a>
+                            </td>
+                        </tr>
+                    {else}
+                        <tr>
+                            <td colspan="15">
+                                <div class="bg-red-400 border border-red-700 rounded p-2 mt-3">
+                                    Nemáte žádné postavy k zobrazení!
+                                </div>
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+{/block}

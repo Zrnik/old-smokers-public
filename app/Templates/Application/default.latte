@@ -1,0 +1,37 @@
+{templateType App\Presenters\ApplicationTemplate}
+
+{var $title = 'Chci se stát členem'}
+
+{block content}
+
+    <section>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div>
+
+                <div class="h3">Zdravíčko!</div>
+
+                <div class="pt-4">
+                    Tak vy se chcete stát členem naší guildy? Tak to není nic snažšího než
+                    se přihlásit na
+                    <a class=" bg-discord mx-2 py-1 rounded pl-1" href="https://discord.gg/YWfF2PJ63V">
+                        <img
+                                src="{webpack 'images/discord.svg'}"
+                                class="w-6 inline border-r-2 border-gray-700 pr-1"
+                                alt="clyde"
+                        >
+                        náš&nbsp;discord
+                    </a>
+                    a ozvat se našemu guild masterovi, kterého tam najdete pod nickem <b class="text-red-600">Dredly</b>!
+                    Taky má jako jedinný červené jméno, takže ho nejde přehlédnout :)
+
+                    <br><br>
+
+                    Po krátkém rozhovoru je na něm, jestli vás příjmeme. Hodně štěstí.
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{/block}

@@ -1,0 +1,106 @@
+{templateType App\Presenters\ScreensTemplate}
+
+{var $title = 'Endorské screenshoty!'}
+{var $description = 'Naše screenshoty a také screenshoty exportované z oficiálních stránek endoru.'}
+
+{block latestCommentsBlock}
+    <span class="h4">Poslední komentáře</span>
+    <div id="latest_comments">
+        <table class="table w-full">
+            {foreach $latestComments as $latestComment}
+                <tr class="border-b-2 border-yellow-800">
+                    <td style="vertical-align: top;padding: 2px;">
+
+                        <img src="{$screenShotRepository->getAvatarUrlOfUploader($latestComment)}" alt="avatar"
+                             class="inline-block w-4 h-4">
+
+                        <b class="text-blue-300">{$screenShotRepository->getUploaderName($latestComment)}</b>
+                        <br>
+                        <i class="text-xs text-white">{$latestComment->date->toDateTime()->format("d.m.Y H:i")}</i>
+                    </td>
+                    <td class="text-white break-all" style="vertical-align: top; padding: 2px;">{$latestComment->text|breakLines}</td>
+                    <td style="vertical-align: top; padding: 2px; min-width: 30px;">
+                        <a
+                                href="{link Screens:detail,id: $latestComment->screenShotId}"
+                        >
+                            <img src="{webpack 'images/arrow.svg'}" alt="to the screenshot" class="block w-20 h-20">
+                        </a>
+                    </td>
+                </tr>
+            {/foreach}
+        </table>
+
+        <div><a href="{link Screens:comments}" class="text-blue-400">Více komentářů!</a></div>
+    </div>
+{/block}
+
+
+{block pagination}
+    <div class="w-full  {if $paginator->isFirst()}md:w-5/12{/if} text-center my-6 border-t-2 border-b-2 py-1 border-yellow-800">
+        {if !$paginator->isFirst()}
+            <a n:href="default, page: 1">První</a>
+            &nbsp;|&nbsp;
+            <a n:href="default, page: $paginator->page-1">Předchozí</a>
+            &nbsp;|&nbsp;
+        {/if}
+
+            Stránka {$paginator->getPage()} z {$paginator->getPageCount()}
+
+	{if !$paginator->isLast()}
+            &nbsp;|&nbsp;
+            <a n:href="default, page: $paginator->getPage() + 1">Další</a>
+            &nbsp;|&nbsp;
+            <a n:href="default, page: $paginator->getPageCount()">Poslední</a>
+        {/if}
+    </div>
+{/block}
+
+{block content}
+
+    <section>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6  border-0">
+
+            <div class="float-right">
+                {if $user->isLoggedIn()}
+                    <a n:href="Screens:upload" class="btn btn-sm bg-green-300 hover:bg-green-400 text-green-700 z-50">
+                        Nahrát obrázek!
+                    </a>
+                {else}
+                    <span class="text-xs text-gray-600">Pro přidání obrázku se musíte přihlásit!</span>
+                {/if}
+
+            </div>
+
+            <div>
+                <div class="h3">{$title}</div>
+                <span class="text-xs text-gray-600">Včetně všech, které existují na starém endoru!</span>
+            </div>
+
+            <div class="">
+
+                {if $paginator->getPage() === 1}
+                    <div class="float-right hidden md:inline-block md:w-1/2">
+                        {include latestCommentsBlock}
+                    </div>
+                {/if}
+
+                {include pagination}
+
+                {foreach $images as $latestImage}
+                    {include './parts/image-box.latte', image: $latestImage}
+                {/foreach}
+
+                {include pagination}
+
+                {if $paginator->getPage() === 1}
+                    <div class="block md:hidden md:w-1/2">
+                        {include latestCommentsBlock}
+                    </div>
+                {/if}
+            </div>
+
+
+        </div>
+    </section>
+
+{/block}

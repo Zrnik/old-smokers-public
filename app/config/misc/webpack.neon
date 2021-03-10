@@ -1,0 +1,10 @@
+extensions:
+    webpack: Contributte\Webpack\DI\WebpackExtension(%debugMode%, %consoleMode%)
+
+webpack:
+    build:
+        directory: %wwwDir%/dist
+        publicPath: dist/
+
+    devServer:
+        enabled: false

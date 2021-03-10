@@ -1,0 +1,62 @@
+application:
+    errorPresenter: Error
+    mapping:
+        *: App\Presenters\*Presenter
+
+tracy:
+    bar:
+        - Zrnik\MkSQL\Tracy\Panel
+
+includes:
+    - misc/webpack.neon
+    - database.neon
+    - discord.neon
+
+services:
+    security.user:  App\Model\Security\DiscordUser
+    - App\Model\Security\DiscordAuthenticator
+    - App\Model\Security\DiscordAuthorizator
+
+    - App\Model\Security\DiscordUserRepository
+    - App\Model\Endor\CharacterRepository
+    - App\Model\Applications\ApplicationRepository
+    - App\Controls\Application\ApplicationFormFactory
+
+    - App\Controls\Endor\Character\CharacterEditorFactory
+
+    - App\Controls\Application\VotingFormFactory
+    - App\Controls\Application\CommentFormFactory
+
+    - App\Model\ScreenShots\ScreenShotRepository
+    - App\Controls\ScreenShots\ScreenshotUploadFactory
+    - App\Controls\ScreenShots\ScreenshotCommentFormFactory
+    - App\Controls\ScreenShots\CommentListDataGridFactory
+
+    - Zrnik\Cruip\MenuRenderer\Services\CruipMenuFactory
+    - App\Controls\Auth\AuthenticationControlFactory
+
+
+    ##########################################################
+    ######## Discord Nastavení, nejebat do toho :D ###########
+    ##########################################################
+    -
+        factory: App\Model\Discord\Connection\Messages
+        setup:
+            - setBotToken(%discord.botToken%)
+            - setNotificationChannelId(%discord.notificationChannelId%)
+
+    -
+          factory: App\Model\Discord\Connection\Guilds
+          setup:
+              - setGuildId(%discord.guildId%)
+              - setBotToken(%discord.botToken%)
+    -
+        factory: App\Model\Discord\Connection\OAuth2
+        setup:
+            - setClientId(%discord.clientId%)
+            - setClientSecret(%discord.clientSecret%)
+
+    ##########################################################
+    ######################## konec nastavení discordu ########
+    ##########################################################
+

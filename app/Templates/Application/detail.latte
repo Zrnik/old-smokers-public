@@ -1,0 +1,122 @@
+{templateType App\Presenters\ApplicationTemplate}
+
+{varType array $_GET}
+
+{var $title = 'Přihláška uživatele '.$applicationOwner->getUsername().'#'.$applicationOwner->getDiscriminator()}
+
+{block content}
+
+    <section>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div>
+
+                <div class="h3">
+                    Přihláška uživatele
+                    {$applicationOwner->getUsername()}<span
+                            class="text-md text-gray-400">#{$applicationOwner->getDiscriminator()}
+                    </span>
+                </div>
+
+                {* Upozornění na nedoručenou zprávu. *}
+                {if !$application->notifications && $user->getId() === $application->ownerId}
+                    <div class="bg-red-300 border border-red-700 text-red-700 p-3 rounded">
+                        <b>Upozornění:</b> Náš bot vás nemohl kontaktovat! Pokud si přejete dostávat
+                        upozornění na discord pokaždé když někdo odpoví na vaši přihlášku (aby jste
+                        nemuseli pořád sledovat jestli už někdo odepsal nebo ne) tak se přidejte na
+                        náš discord server, popřípade si povolte příjmání soukromých zpráv.
+                        <br><br>
+                        Následně pokračujte na
+                        <a href="{link reconnectDiscord!}" class="text-red-800 font-bold underline">tento odkaz</a>
+                        kterým se pokusíme opět navázat spojení!
+                    </div>
+                {/if}
+
+                <div class="pt-4">
+                    {$application->getMarkdown()|noescape}
+                    {* Noescape so můžu dovolit, je to markdon parsed, ne uživatelské html. *}
+                </div>
+
+                <div class="pt-4">
+
+                    <div class="h4">Postavy</div>
+
+                    <table class="table w-full">
+                        {foreach $characters as $character}
+                            <tr class="{if $iterator->isEven()}bg-gray-600 bg-opacity-25{/if}">
+                                <td class="{$character->notoClass()} p-1">
+                                    {$character->getTag()} {$character->name},
+                                    {=App\Model\Endor\Jobs::getName($character->job)}
+                                    ({= App\Model\Endor\Races::getName($character->race)})
+                                </td>
+                                <td class="p-1">
+                                    Level: {$character->boughtLevel}
+                                </td>
+                            </tr>
+                        {/foreach}
+                    </table>
+                </div>
+
+                <div class="mt-4 rounded-lg p-3 bg-green-900 bg-opacity-25">
+                    <div class="h4">Hlasování o přijetí!</div>
+                    {control votingForm}
+                </div>
+
+                <div class="pt-4">
+                    <span class="h3">Komentáře</span>
+                    {foreach $comments as $comment}
+
+                        {var App\Model\Discord\User|null $commenter = $discordUserRepository->getUser($comment->discordId)}
+                        {var App\Model\Discord\Guilds\GuildMember|null $guildMember = $guilds->getMember($comment->discordId)}
+
+                        <div id="comment-{$comment->id}"{if !$iterator->isFirst()} class="border-t border-gray-600 pt-4"{/if}>
+
+
+                            <!-- Author -->
+                            <div class="grid grid-cols-12">
+                                <!-- User Name -->
+                                <img src="{$commenter->getAvatarUrl()}" class="w-16 h-16 rounded col-span-1"
+                                     alt="user icon"/>
+
+                                <!-- Icon -->
+                                <span class=" col-span-11">
+                                    {if $guildMember !== null}
+                                        <span class="h3" style="color: {$guildMember->getHexColor()|noescape}">
+                                            {$guildMember->getNickname()}#{$commenter->getDiscriminator()}
+                                        </span>
+
+                                        <span class="bg-gray-700 text-lg p-1 rounded"
+                                              style="color: {$guildMember->getHexColor()|noescape}">
+                                            {$guildMember->getTopRole()?->getName()??"Kolemjdoucí"}
+                                        </span>
+                                    {else}
+                                        <span class="h3">
+                                            {$commenter->getUsername()}#{$commenter->getDiscriminator()}
+                                        </span>
+                                    {/if}
+                                    <br>
+                                    <span class="text-sm text-gray-500">
+                                        {$comment->time->toDateTime()->format("d.m.Y H:i:s")}
+                                    </span>
+                                </span>
+
+                            </div>
+
+                            <!-- Text -->
+                            <div class="">
+                                {$comment->getMarkdown()|noescape}
+                            </div>
+
+
+                        </div>
+                    {/foreach}
+                </div>
+
+                <div class="pt-4">
+                    {control commentForm}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{/block}

@@ -1,0 +1,30 @@
+{templateType App\Presenters\Error4xxTemplate}
+{var $title = 'Chyba '.$code}
+{block content}
+    <section class="relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="pt-10 pb-12 md:pt-20 md:pb-10">
+                <div class="max-w-3xl mx-auto text-center">
+                    <!-- Top image -->
+                    <div class="relative inline-flex flex-col mb-6" data-aos="fade-up">
+                        <img src="{webpack 'images/travolta.gif'}" alt="{$code}" class="w-64 h-64" />
+                    </div>
+
+                    <!-- 404 content -->
+                    <h1 class="h1 mb-4" data-aos="fade-up" data-aos-delay="200">Ňákej error čoveče.</h1>
+
+                    <p class="text-lg text-gray-400" data-aos="fade-up" data-aos-delay="400">
+                        Hele fakt, tenhle ten neznám, má kód {$code} a nikdo s tím nepočítal.
+                    </p>
+
+                    <p class="text-lg text-gray-400 mt-3" data-aos="fade-up" data-aos-delay="600">
+
+                        <a class="btn bg-purple-200 text-purple-600 hover:bg-purple-300 transition duration-150 ease-in-out" href="{link Homepage:default}">
+                            Hurá domů
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{/block}

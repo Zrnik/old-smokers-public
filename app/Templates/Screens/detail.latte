@@ -1,0 +1,116 @@
+{templateType App\Presenters\ScreensTemplate}
+
+{var $title = $detailedImage->title}
+{var $description = "Screenshot " . $title . " od uživatele " . $screenShotRepository->getUploaderName($detailedImage) . " na stránce guildy Old Smokers."}
+{var $image = $presenter->getHttpRequest()->getUrl()->getBasePath()."screenshot-images/image-" . ($detailedImage->id??0) . ".jpg"}
+
+{block content}
+    <section>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6  border-0">
+            <div class="w-full text-center py-8">
+                <div class="h2">
+                    {$detailedImage->title}
+                </div>
+            </div>
+
+            <div class="w-full text-center">
+                {if $screenShotRepository->getNextId($detailedImage->id) !== null}
+                    <a class="" href="{link Screens:detail, id: $screenShotRepository->getNextId($detailedImage->id)}">
+                        <img src="{webpack 'images/arrow.svg'}" alt="next" class="w-4 h-4 inline transform rotate-180">
+                    </a>
+                {/if}
+
+
+                <div class="inline px-4">
+                    <a
+                        n:href="Screens:default, page: $detailedImagePage"
+                        class="text-decoration-none"
+                    >
+                        Seznam
+                    </a>
+
+                    {if $user->hasRole("Administrátor")}
+                        <a
+                            n:href="Screens:delete, id: $detailedImage->id"
+                            class="pl-6 text-red-600 text-decoration-none"
+                        >
+                            Odstranit!
+                        </a>
+                    {/if}
+
+                </div>
+                {if $screenShotRepository->getPreviousId($detailedImage->id) !== null}
+                        <a class=""
+                           href="{link Screens:detail, id: $screenShotRepository->getPreviousId($detailedImage->id)}">
+                            <img src="{webpack 'images/arrow.svg'}" alt="previous" class="w-4 h-4 inline">
+                        </a>
+                    {/if}
+
+            </div>
+
+            <div class="w-full">
+                <div class="border-l-2 pl-2 py-2 border-yellow-800">
+
+                    <img src="{$screenShotRepository->getAvatarUrlOfUploader($detailedImage)}" alt="avatar"
+                         class="inline-block w-6 h-6">
+
+                    Nahrál uživatel
+                    <b class="text-blue-300">{$screenShotRepository->getUploaderName($detailedImage)}</b>
+                    <span class="text-sm italic text-gray-500">
+                {$detailedImage->date->toDateTime()->format("d.m.Y H:i")}
+                </span>
+                </div>
+            </div>
+
+        </div>
+        <img src="{$screenShotRepository->getImageUrl($detailedImage->id)}" alt="screenshot image"
+             class="block mx-auto">
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6  border-0">
+
+
+            <div class="w-full pt-10">
+                <div class="h4">
+                    Komentáře: {count($detailedImage->comments)}
+                </div>
+                {foreach $detailedImage->comments as $comment}
+                    <div>
+
+                        <div class="border-l-2 border-t border-yellow-800 p-1 pl-2">
+                            <small>{$iterator}.</small>
+
+
+                            <img src="{$screenShotRepository->getAvatarUrlOfUploader($comment)}" alt="avatar"
+                                 class="inline-block w-6 h-6">
+
+                            <b class="text-blue-300">{$screenShotRepository->getUploaderName($comment)}</b>
+
+
+                            <span class="text-sm italic text-gray-400">
+                            {$comment->date->toDateTime()->format("d.m.Y H:i")}
+                        </span>
+                        </div>
+
+                        <div class="p-2 break-all">
+                            {$comment->text|breakLines}
+                        </div>
+
+                    </div>
+                {/foreach}
+
+                <div class="mt-3">
+
+
+                    {if $user->isLoggedIn()}
+                        {control commentForm}
+                    {else}
+                        Pro přidání komentáře musíte být přihlášeni!
+                    {/if}
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+{/block}

@@ -1,0 +1,21 @@
+{varType App\Model\ScreenShots\Screen $image}
+{varType App\Model\ScreenShots\ScreenShotRepository $screenShotRepository}
+
+<span class="inline-block w-64 border-0 p-2">
+
+    <a class="block w-full p-1" href="{link Screens:detail, id: $image->id}">
+        <img src="{$screenShotRepository->getThumbnailUrl($image->id)}" alt="screen thumbnail" class="mx-auto">
+    </a>
+
+    <div class="text-center">
+        <div class="text-sm">
+            <img src="{$screenShotRepository->getAvatarUrlOfUploader($image)}" alt="avatar" class="inline-block w-3 h-3">
+            <b>{$screenShotRepository->getUploaderName($image)}</b>: {$image->title}
+        </div>
+        <div class="text-xs italic">
+            {$image->date->toDateTime()->format("d.m.Y H:i")} | Komentářů: <b>{count($image->comments)}</b>
+        </div>
+    </div>
+
+</span>
+

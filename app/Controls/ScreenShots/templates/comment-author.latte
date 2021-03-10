@@ -1,0 +1,6 @@
+{varType App\Model\ScreenShots\ScreenComment $item}
+{varType App\Model\ScreenShots\ScreenShotRepository $screenShotRepository}
+
+<img src="{$screenShotRepository->getAvatarUrlOfUploader($item)}" alt="uploader img" class="block w-6 h-6">
+
+{$screenShotRepository->getUploaderName($item)}

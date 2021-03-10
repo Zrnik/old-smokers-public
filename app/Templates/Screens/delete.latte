@@ -1,0 +1,21 @@
+{templateType App\Presenters\ScreensTemplate}
+
+{block content}
+
+    <section>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6  border-0">
+            <div class="h2 text-center text-red-600">
+                Opravdu smazat screenshot "{$deleteImage->title}" od
+                uživatele "{$screenShotRepository->getUploaderName($deleteImage)}"?
+            </div>
+
+            <a n:href="deleteImage!, id: $deleteImage->id"
+                    class="btn bg-green-500 text-white hover:bg-green-600">ANO!</a>
+
+            <a n:href="Screens:detail, id: $deleteImage->id"
+                    class="btn bg-red-500 text-white hover:bg-red-600">NE!</a>
+
+        </div>
+    </section>
+
+{/block}

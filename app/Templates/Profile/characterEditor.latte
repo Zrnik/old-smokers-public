@@ -1,0 +1,22 @@
+{templateType App\Presenters\ProfileTemplate}
+
+{var $title = ($characterId === 0 ? "Vytvořit Postavu" : "Upravit postavu")}
+
+{block content}
+    <section class="relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="pt-10">
+                <div class="h2">
+                    {if $characterId === 0}Vytvořit Postavu{else}Upravit Postavu{/if}
+                </div>
+
+                <hr class="my-8">
+
+                {control characterEditor}
+
+            </div>
+        </div>
+    </section>
+
+
+{/block}

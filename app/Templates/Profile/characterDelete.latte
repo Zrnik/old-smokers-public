@@ -1,0 +1,22 @@
+{templateType App\Presenters\ProfileTemplate}
+
+
+{var $title = 'Smazat postavu '.$deletedCharacter->name}
+
+{block content}
+    <section class="relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="pt-10">
+                {if $deletedCharacter !== null}
+                    <div class="h2">Jste si jistí smazáním postavy '{$deletedCharacter->name}'?</div>
+
+                    <a href="{link Profile:}" class="btn btn bg-green-300 text-green-700">Rozmyslel(a) jsem si to</a>
+
+                    <a href="{link characterDelete!}" class="btn btn bg-red-300 text-red-700">Opravdu smazat!</a>
+                {/if}
+            </div>
+        </div>
+    </section>
+{/block}
+
+

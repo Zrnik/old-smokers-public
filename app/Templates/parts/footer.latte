@@ -1,0 +1,163 @@
+{templateType App\Presenters\BaseTemplate}
+<footer>
+    <div class="py-12 md:py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+            <!-- Top area: Blocks -->
+            <div class="grid md:grid-cols-12 gap-8 lg:gap-20 mb-8 md:mb-12">
+
+                <!-- 1st block -->
+                <div class="md:col-span-3 lg:col-span-5">
+                    <div class="mb-2">
+                        <!-- Logo -->
+                        <a class="inline-block" href="{link Homepage:default}" aria-label="Home">
+                            <img
+                                    src="{webpack 'images/cannabis.svg'}"
+                                    alt="Cannabis Logo"
+                                    class="w-12"
+                            >
+                        </a>
+                    </div>
+                    <div class="text-gray-400">
+
+                        Jsme nová guilda, povětšinou začátečníků, Chcete se k nám přidat?
+                        Nábor je momentálně otevřen a příjmáme nové hráče!<br><br>
+
+                        <a
+                                class="btn text-white bg-purple-600 hover:bg-purple-700 w-full mx-1 mb-4 sm:w-auto sm:mb-0"
+                                n:href="Application:"
+                        >
+                            Chci se stát členem!
+                        </a>
+
+
+                        <br> <br>
+
+                        Víte že:
+                        <div class="border border-green-800 text-green-800 bg-green-200 px-3 py-2 rounded-md font-bold">
+                            {* Aby to vypadalo že je to jedinné existující víte-že :D *}
+                            <div class="float-right text-sm text-gray-400">1/1</div>
+                            Dredly to nehrál 10 let?
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2nd -->
+                <div class="md:col-span-4 lg:col-span-3 grid sm:grid-cols-1 gap- text-center">
+
+                    <!-- 2nd block -->
+                    <div class="text-sm">
+                        <h6 class="text-gray-200  h4 mb-1">Old Smokers</h6>
+                        <ul>
+                            {foreach $menu->getComponents() as $menuItem}
+                                {if $menuItem instanceof Zrnik\Menu\Url}
+                                    {var Zrnik\Menu\Url $url = $menuItem}
+                                    <li class="mb-1">
+                                        <a class="text-gray-400 hover:text-gray-100 transition duration-150 ease-in-out"
+                                           href="{$url->getAbsoluteUrl()}">{$url->label}</a>
+                                    </li>
+                                {/if}
+                            {/foreach}
+                        </ul>
+
+                        <h6 class="text-gray-200 h4 mb-1 pt-10">Odkazy</h6>
+                        <ul>
+                            <li class="mb-1">
+                                <a
+                                        class="
+                                        text-gray-400 hover:text-gray-100
+                                        transition duration-150 ease-in-out
+                                    "
+                                        href="https://endor-reborn.cz/"
+                                        target="_blank"
+                                >
+                                    Oficiální stránky endoru!
+                                </a>
+                            </li>
+
+                            <li class="mb-1">
+                                <a
+                                        class="
+                                        text-gray-400 hover:text-gray-100
+                                        transition duration-150 ease-in-out
+                                    "
+                                        href="http://endorwiki.g6.cz/"
+                                        target="_blank"
+                                >
+                                    Endor Wiki
+                                </a>
+                            </li>
+
+                            <li class="mb-1">
+                                <a
+                                        class="
+                                        text-gray-400 hover:text-gray-100
+                                        transition duration-150 ease-in-out
+                                    "
+                                        href="http://milkmanuv.pisecek.net/"
+                                        target="_blank"
+                                >
+                                    Milkmanův Píseček
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- 3rd block -->
+                <div class="md:col-span-5 lg:col-span-4">
+                    <div class="mb-2">
+                        <iframe src="https://discord.com/widget?id=809692562196791307&theme=dark"
+                                width="350" height="500"
+                                allowtransparency="true" frameborder="0"
+                                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                                class="mx-auto"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom area -->
+            <div>
+
+                <!-- Social links -->
+                {* Cruip licence mi nedovoli mit ten kod verejny, skoda :D *}
+                {*
+                    <div class="float-right w-64">
+
+                        Zdrojový kód stránky:
+
+                        <a
+                                class="
+                                    inline bg-white rounded-full transition duration-150 ease-in-out
+                                    w-8 h-8 p-2 pb-3 ml-5
+                                "
+                                href="https://github.com/Zrnik/old-smokers.git"
+                                target="_blank"
+                                aria-label="Github"
+                        >
+                            <img
+                                    class="fill-current inline  w-6 h-6"
+                                    src="{webpack 'images/github.svg'}"
+                                    alt="github mark"
+
+                            >
+                        </a>
+                    </div>
+                *}
+
+                <!-- Copyrights note -->
+                <div class="text-gray-400 text-sm mr-4">
+                    &copy; {date("Y")} Old Smokers.
+                    Crafted by
+                    <span class="text-yellow-400">After 10 Years Production</span>.
+                    All rights reserved.
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</footer>
