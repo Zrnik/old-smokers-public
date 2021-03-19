@@ -7,9 +7,9 @@ include __DIR__ . '/../vendor/autoload.php';
 use Nette\Application\Application;
 use Nette\Bootstrap\Configurator;
 use Nette\DI\Container;
-use UnexpectedValueException;
 use Nette\Utils\Finder;
 use Throwable;
+use UnexpectedValueException;
 
 class Bootstrap
 {
@@ -23,7 +23,6 @@ class Bootstrap
 
     //region createInstance
     private static ?Bootstrap $bs = null;
-
 
     public static function instance(): Bootstrap
     {
@@ -108,6 +107,36 @@ class Bootstrap
         $application = $this->getContainer()->getByType(Application::class);
 
         return $application;
+    }
+
+
+    /**
+     * https://stackoverflow.com/a/9866124/3133859
+     */
+    public static function cors(): void
+    {
+
+        // Allow from any origin
+        if (isset($_SERVER['HTTP_ORIGIN'])) {
+            // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
+            // you want to allow, and if so:
+            header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+            header('Access-Control-Allow-Credentials: true');
+            header('Access-Control-Max-Age: 86400');    // cache for 1 day
+        }
+
+        // Access-Control headers are received during OPTIONS requests
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+                // may also be using PUT, PATCH, HEAD etc
+                header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
+            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+                header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+
+            exit(0);
+        }
     }
 
     private function clearCacheDirectory(string $path): void

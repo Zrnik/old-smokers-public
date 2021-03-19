@@ -35,6 +35,9 @@ services:
     - Zrnik\Cruip\MenuRenderer\Services\CruipMenuFactory
     - App\Controls\Auth\AuthenticationControlFactory
 
+    - App\Controls\Quests\QuestGridFactory
+    - App\Model\Endor\Quests\QuestRepository
+
 
     ##########################################################
     ######## Discord Nastavení, nejebat do toho :D ###########
