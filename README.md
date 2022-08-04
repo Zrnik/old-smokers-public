@@ -25,9 +25,6 @@ Website is automatically deployed to the production server by a github
 action and another action is also contributing to this repository you see
 right now.
 
-This is the best I can do, and I am open to criticism, if you think
-something is wrong, please let me know!
-
 My name is **Štěpán Zrník**, and I love programming, you can see my 
 website at [https://stepan.zrnik.eu/](https://stepan.zrnik.eu/)
 if you want to see more about me!
